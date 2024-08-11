@@ -1,11 +1,24 @@
 import puppeteer from "puppeteer";
-
+import dotenv from "dotenv";
+dotenv.config();
 export async function scrapeAtcoderProfile(username) {
   const url = `https://atcoder.jp/users/${username}`;
-  const browser = await puppeteer.launch({ headless: true,args: ['--no-sandbox', '--disable-setuid-sandbox'], });
-  const page = await browser.newPage();
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote,",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  });
+  
 
   try {
+    const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle2" });
 
     const userInfo = await page.evaluate(() => {
@@ -83,7 +96,9 @@ export async function scrapeAtcoderContests() {
             const startTimeParts = startTime.split(" ");
             contestCode = startTimeParts.pop(); // Last element should be the code
 
-            if (startTimeParts.some((part) => part.toLowerCase() === "beginner")) {
+            if (
+              startTimeParts.some((part) => part.toLowerCase() === "beginner")
+            ) {
               contestType = "abc";
             } else if (
               startTimeParts.some((part) => part.toLowerCase() === "regular")
