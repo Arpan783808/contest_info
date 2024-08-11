@@ -11,9 +11,14 @@ const frontendUrl = process.env.FRONTEND_URL;
 app.use(
   cors({
     origin:frontendUrl,
-    methods: ["GET", "POST", "PUT", "DELETE"
+    methods: ["GET", "POST", "PUT", "DELETE"]
   })
 );
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use("/", router);
 app.get("/", (req, res) => {
   res.send("hello");
