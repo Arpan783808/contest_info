@@ -1,0 +1,34 @@
+.contestpage{
+    min-height:100vh;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header{
+    margin-top:30px;
+    height:50px;
+    width:90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:40px;
+}
+.codeforcebutton{
+    height:50px;
+    width:120px;
+    font-size:20px;
+    border-radius:10px;
+    background-color: blue;
+    border: none;
+    cursor:pointer;
+    color:white;
+}
+.category1{
+    width:95%;
+    display: flex;
+    gap:100px;    
+    justify-content: center;
+    flex-wrap: wrap;
+}

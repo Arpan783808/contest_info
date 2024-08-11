@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Luckiest+Guy&display=swap');
+.headerleaderboard{
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(16, 3, 84);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.headerleaderboard h1{
+    /* font-family: "Anton",sans-serif; */
+    color :white;
+    font-size: 150px;
+    margin:10px;
+    text-shadow:1px 5px 10px #2784fd;
+    /* outline:2px white; */
+}
+a{
+    color:white;
+}
+thead{
+    padding-bottom: 50px;
+    color: white;
+
+}
+table{    
+    width: 97%;
+    color:rgb(16, 3, 84);
+    font-size: 30px;
+    border-collapse: separate;
+    border-spacing:0 10px;
+    /* font-family: "Anton",sans-serif; */
+}
+th{
+    text-shadow:1px 1px 5px #2784fd;
+}
+tbody{
+    color: white;
+    border-radius: 20px;
+    background-color:rgb(16, 3, 84);
+}
+th,td{
+    text-align:center;
+}
+.homebutton{
+    border-radius: 15px;
+    background-color: #004aab;
+    color: white;
+    cursor: pointer;
+    height: 50px;
+    width:80px;
+    position:absolute;
+    font-size:20px;
+    left:20px;
+    top:20px;
+    border:none;
+}

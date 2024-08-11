@@ -1,0 +1,43 @@
+h1{
+    margin-left:10px;
+    font-size:20px;
+    /* background-color: aqua; */
+}
+.fullcard{
+    display: flex;
+    flex-direction: column;
+    gap:0px;
+}
+.contestname{
+    height:38px;
+    width:400px;
+    border-radius:20px 20px 0px 0px;
+    background-color: aqua;
+}
+.individualcontest{
+    padding:10px;
+    display:inline-block;
+    align-items: center;
+    justify-content: center;
+    height:200px;
+    width:380px;
+    background-color: blue;
+    border-radius: 0px 0px 20px 20px;
+   
+}
+.individualcontest h2{
+    
+    font-size:20px;
+    color:white;
+}
+.contestbutton{
+    height:30px;
+    width:80px;
+    background-color: aqua;
+    color:black;
+    font-size:15px;
+    border:none;
+    border-radius: 10px;
+    margin-left:14px;
+    cursor: pointer;
+}
