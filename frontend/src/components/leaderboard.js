@@ -16,7 +16,7 @@ const Leaderboard = () => {
     fetchUsers();
   }, []);
   const handleHome=()=>{
-    navigate("/contest");
+    navigate("/");
   }
   return (
     <div className="headerleaderboard">

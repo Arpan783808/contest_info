@@ -11,6 +11,8 @@ export const Contest = () => {
   const [view, setView] = useState("cf");
   const navigate = useNavigate();
   const host = process.env.REACT_APP_BACKEND_URL;
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchContest = async () => {
       try {
@@ -27,6 +29,9 @@ export const Contest = () => {
       } catch (error) {
         console.log(error.message);
       }
+      finally {
+        setLoading(false); // Set loading to false once data is fetched
+      }
     };
     fetchContest();
   }, []);
@@ -42,9 +47,6 @@ export const Contest = () => {
   );
   const handleView = (e) => {
     setView(e.target.value);
-  };
-  const handleNav = () => {
-    navigate("/");
   };
   const handleLeaderboard = (e) => {
     navigate("/leaderboard");
@@ -77,30 +79,24 @@ export const Contest = () => {
         </button>
       </div>
 
-      {view === "cf" && (
-        <div className="category1">
-          <Contestlist
-            contests={upcomingContests}
-            category="Upcoming Contests"
-          />
-          <Contestlist
-            contests={finishedContests}
-            category="Finished Contests"
-          />
-        </div>
-      )}
-      {view === "atcoder" && (
-        <div className="category1">
-          <Contestlistatcoder
-            contests={atcoderupcoming}
-            category="Upcoming Contests"
-          />
-          <Contestlistatcoder
-            contests={atcoderpast}
-            category="Finished Contests"
-          />
-        </div>
-      )}
+      {loading ? (
+      <div className="loading">Loading...</div> // Or use a spinner component
+    ) : (
+      <div className="category1">
+        {view === "cf" && (
+          <>
+            <Contestlist contests={upcomingContests} category="Upcoming Contests" />
+            <Contestlist contests={finishedContests} category="Finished Contests" />
+          </>
+        )}
+        {view === "atcoder" && (
+          <>
+            <Contestlistatcoder contests={atcoderupcoming} category="Upcoming Contests" />
+            <Contestlistatcoder contests={atcoderpast} category="Finished Contests" />
+          </>
+        )}
+      </div>
+    )}
     </div>
   );
 };
