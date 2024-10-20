@@ -20,7 +20,7 @@ const Leaderboard = () => {
   }
   return (
     <div className="headerleaderboard">
-      <button className="homebutton" onClick={handleHome}>Home</button>
+      <button className="homebutton" onClick={handleHome}>HOME</button>
       <h1>ATCODER</h1>
       <table className="tableprofile">
         <thead>

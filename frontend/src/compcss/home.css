@@ -17,10 +17,10 @@
 }
 .codeforcebutton{
     height:50px;
-    width:120px;
-    font-size:20px;
+    width:200px;
+    font-size:30px;
     border-radius:10px;
-    background-color: blue;
+    background-color: #3a3254;
     border: none;
     cursor:pointer;
     color:white;
@@ -31,4 +31,12 @@
     gap:100px;    
     justify-content: center;
     flex-wrap: wrap;
+}
+.codeforcebutton:hover{
+    color:#ac99ec ;
+    text-shadow:1px 1px 1px #e7ebf1;
+}
+.codeforcebutton:visited{
+    color:#ac99ec ;
+    text-shadow:1px 1px 1px #e7ebf1;
 }

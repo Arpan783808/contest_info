@@ -85,14 +85,14 @@ export const Contest = () => {
       <div className="category1">
         {view === "cf" && (
           <>
-            <Contestlist contests={upcomingContests} category="Upcoming Contests" />
-            <Contestlist contests={finishedContests} category="Finished Contests" />
+            <Contestlist contests={upcomingContests} category="UPCOMING CONTESTS" />
+            <Contestlist contests={finishedContests} category="PAST CONTESTS" />
           </>
         )}
         {view === "atcoder" && (
           <>
-            <Contestlistatcoder contests={atcoderupcoming} category="Upcoming Contests" />
-            <Contestlistatcoder contests={atcoderpast} category="Finished Contests" />
+            <Contestlistatcoder contests={atcoderupcoming} category="UPCOMING CONTESTS" />
+            <Contestlistatcoder contests={atcoderpast} category="PAST CONTESTS" />
           </>
         )}
       </div>

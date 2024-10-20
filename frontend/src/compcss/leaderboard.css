@@ -1,18 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Luckiest+Guy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
 .headerleaderboard{
+    /* margin-top:50px; */
+    
     min-height: 100vh;
     width: 100%;
-    background-color: rgb(16, 3, 84);
+    background-color: #3a3254;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .headerleaderboard h1{
-    /* font-family: "Anton",sans-serif; */
+    font-family: "League Spartan", sans-serif;
     color :white;
     font-size: 150px;
     margin:10px;
-    text-shadow:1px 5px 10px #2784fd;
+    text-shadow:1px 2px 5px #f9fbff;
     /* outline:2px white; */
 }
 a{
@@ -24,33 +29,35 @@ thead{
 
 }
 table{    
+    margin-top:50px;
     width: 97%;
     color:rgb(16, 3, 84);
     font-size: 30px;
     border-collapse: separate;
     border-spacing:0 10px;
-    /* font-family: "Anton",sans-serif; */
+    font-family: "League Spartan", sans-serif;
 }
 th{
-    text-shadow:1px 1px 5px #2784fd;
+    text-shadow:1px 2px 2px #f9fbff;
 }
 tbody{
     color: white;
-    border-radius: 20px;
-    background-color:rgb(16, 3, 84);
+    border-radius: 30px;
+    background-color:#3a3254;
+
 }
 th,td{
     text-align:center;
 }
 .homebutton{
     border-radius: 15px;
-    background-color: #004aab;
+    background-color: #3a3254;
     color: white;
     cursor: pointer;
     height: 50px;
     width:80px;
     position:absolute;
-    font-size:20px;
+    font-size:30px;
     left:20px;
     top:20px;
     border:none;

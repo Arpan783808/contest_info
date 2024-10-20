@@ -1,40 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
 h1{
-    margin-left:10px;
+    /* margin-left:10px; */
     font-size:20px;
+    color:white;
+    font-size: 25px;
+    font-family: "League Spartan", sans-serif;
     /* background-color: aqua; */
 }
 .fullcard{
+    width:95vw;
+    height:100px;
     display: flex;
-    flex-direction: column;
-    gap:0px;
+    /* justify-content: center; */
+    align-items: center;
+    gap:15px;
+    background-color:     #18122B;
+    ;
+    border-radius: 20px;
 }
 .contestname{
-    height:38px;
-    width:400px;
-    border-radius:20px 20px 0px 0px;
-    background-color: aqua;
+    height:85px;
+    width:55%;
+    /* padding:10px; */
+    margin-left:10px;
+    
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:20px 20px 20px 20px;
+    color:white;
+    background-color: #443C68;
+    cursor: pointer;
+    font-size: 25px;
+    font-family: "League Spartan",sans-serif;
+}
+.contestname:hover{
+    background-color:#5e5292 ;
 }
 .individualcontest{
-    padding:10px;
-    display:inline-block;
+    /* padding:10px; */
+    /* display:inline-block; */
+    display: flex;
     align-items: center;
     justify-content: center;
-    height:200px;
-    width:380px;
-    background-color: blue;
-    border-radius: 0px 0px 20px 20px;
+    height:85px;
+    width:30%;
+    background-color: #443C68;
+    border-radius: 20px;
    
 }
-.individualcontest h2{
-    
-    font-size:20px;
+.individualcontest h2{    
+    font-size:25px;
+    font-family: "League Spartan", sans-serif;
     color:white;
 }
 .contestbutton{
-    height:30px;
-    width:80px;
-    background-color: aqua;
-    color:black;
+    
+    height:90px;
+    width:40%;
+    background-color: #443C68;
+    color:white;
     font-size:15px;
     border:none;
     border-radius: 10px;
