@@ -4,9 +4,10 @@ import axios from "axios";
 import "../compcss/home.css";
 import Contestlist from "./contestlist.jsx";
 import Contestlistatcoder from "./contestlistatcoder.jsx";
+import  LoadingSpinner  from "./loader.jsx";
 export const Contest = () => {
-  const [atcoderupcoming,setAtcoder]=useState([]);
-  const [atcoderpast,setAtcoderPast]=useState([]);
+  const [atcoderupcoming, setAtcoder] = useState([]);
+  const [atcoderpast, setAtcoderPast] = useState([]);
   const [contests, setContests] = useState([]);
   const [view, setView] = useState("cf");
   const navigate = useNavigate();
@@ -23,13 +24,12 @@ export const Contest = () => {
           );
           setContests(sortedContests);
         }
-        const response1=await axios.get(`${host}/atcoder`);
+        const response1 = await axios.get(`${host}/atcoder`);
         setAtcoder(response1.data.upcoming);
         setAtcoderPast(response1.data.past);
       } catch (error) {
         console.log(error.message);
-      }
-      finally {
+      } finally {
         setLoading(false); // Set loading to false once data is fetched
       }
     };
@@ -80,23 +80,35 @@ export const Contest = () => {
       </div>
 
       {loading ? (
-      <div className="loading">Loading...</div> // Or use a spinner component
-    ) : (
-      <div className="category1">
-        {view === "cf" && (
-          <>
-            <Contestlist contests={upcomingContests} category="UPCOMING CONTESTS" />
-            <Contestlist contests={finishedContests} category="PAST CONTESTS" />
-          </>
-        )}
-        {view === "atcoder" && (
-          <>
-            <Contestlistatcoder contests={atcoderupcoming} category="UPCOMING CONTESTS" />
-            <Contestlistatcoder contests={atcoderpast} category="PAST CONTESTS" />
-          </>
-        )}
-      </div>
-    )}
+        <LoadingSpinner /> // Or use a spinner component
+      ) : (
+        <div className="category1">
+          {view === "cf" && (
+            <>
+              <Contestlist
+                contests={upcomingContests}
+                category="UPCOMING CONTESTS"
+              />
+              <Contestlist
+                contests={finishedContests}
+                category="PAST CONTESTS"
+              />
+            </>
+          )}
+          {view === "atcoder" && (
+            <>
+              <Contestlistatcoder
+                contests={atcoderupcoming}
+                category="UPCOMING CONTESTS"
+              />
+              <Contestlistatcoder
+                contests={atcoderpast}
+                category="PAST CONTESTS"
+              />
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
