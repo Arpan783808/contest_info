@@ -36,6 +36,8 @@ export const replaceContestData = async (contests) => {
     console.error('Error replacing contest data:', error);
   }
 };
+
+
 export const replaceContestData1 = async (contests) => {
   try {
     // Step 1: Clear existing contests from MongoDB

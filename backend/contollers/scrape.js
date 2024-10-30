@@ -121,7 +121,6 @@ export async function scrapeAtcoderContests() {
           console.log(contestType);
           console.log(contestCode);
           const contestLink = `https://atcoder.jp/contests/${contestType}${contestCode}`;
-
           data.push({
             name: title,
             startTime,
@@ -214,19 +213,28 @@ export async function scrapeCodechefContests() {
       waitUntil: "networkidle2",
     });
     console.log("codecehf");
-    // Scrape Upcoming Contests
+
     contests.upcoming = await page.evaluate(() => {
       const data = [];
-      const rows = document.querySelectorAll("jss70 tbody tr");
-      
-      rows.forEach((row) => {
-        const columns = row.querySelectorAll("td");
-        if (columns.length> 1) {
-          const title = columns[0].querySelector("p")?.innerText.trim();
-          const startTime = columns[2].querySelector("p")?.innerText.trim();
-          const duration = columns[3].querySelector("p")?.innerText.trim();
-          const contestCode = title.match(/\d+/)[0];
-          const contestType="START";
+      const contestDivs = document.querySelectorAll(
+        "._flex__container_7s2sw_528"
+      );
+      console.log("rows");
+      contestDivs.forEach((div) => {
+        const title = div.querySelector("a")?.innerText.trim();
+        const timeElements = div.querySelectorAll(
+          "p"
+        ); // Adjust the selector to match the timer div and p tags
+        const hours = timeElements[0]?.innerText.trim() || "";
+        const minutes = timeElements[1]?.innerText.trim() || "";
+        const hasStartTime = timeElements.length > 0;
+        if(!hasStartTime) return;
+        const startTime = `${hours} ${minutes}`;
+        const duration = "null";
+        const contestType = "START";
+        const contestCodeMatch = title.match(/Starters\s(\d+)/);
+        const contestCode = contestCodeMatch ? contestCodeMatch[1] : null;
+        if (contestCode && startTime) {
           data.push({
             name: title,
             startTime,
@@ -244,25 +252,33 @@ export async function scrapeCodechefContests() {
     // Scrape Past Contests
     contests.past = await page.evaluate(() => {
       const data = [];
-      const rows = document.querySelectorAll(".MuiTable-root tbody tr");
-
-      rows.forEach((row) => {
-        const columns = row.querySelectorAll("td");
-        if (columns.length> 1) {
-          const title = columns[0].querySelector("p")?.innerText.trim();
-          const startTime = columns[2].querySelector("p")?.innerText.trim();
-          const duration = columns[3].querySelector("p")?.innerText.trim();
-          const contestCode = title.match(/\d+/)[0];
-          const contestType="START";
-          data.push({
-            name: title,
-            startTime,
-            duration,
-            contestType,
-            contestCode,
-            isPast: false,
-          });
+      const contestDivs = document.querySelectorAll(
+        "._flex__container_7s2sw_528"
+      );
+      console.log("rows");
+      contestDivs.forEach((div) => {
+        const title = div.querySelector("a")?.innerText.trim();
+        if(!title.includes("Starters")) return;
+        const timeElements = div.querySelectorAll(
+          "p"
+        );
+        const hasStartTime = timeElements.length > 0;
+        const startTime = null;
+        if (hasStartTime) {
+          return ;
         }
+        const duration = "null";
+        const contestType = "START";
+        const contestCodeMatch = title.match(/Starters\s(\d+)/);
+        const contestCode = contestCodeMatch ? contestCodeMatch[1] : null;
+        data.push({
+          name: title,
+          startTime,
+          duration,
+          contestType,
+          contestCode,
+          isPast: true,
+        });
       });
 
       return data;

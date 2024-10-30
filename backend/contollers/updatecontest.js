@@ -10,4 +10,4 @@ export const updateContestStatus = async () => {
   }
 };
 
-setInterval(updateContestStatus, 12 * 60 * 60 * 1000); // Run every minute
+setInterval(updateContestStatus,60 * 1000); // Run every minute

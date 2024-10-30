@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../compcss/leaderboard.css";
 import LoadingSpinner from "./loader.jsx";
+import home from "../assets/home.png";
 const Leaderboard = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -21,11 +22,12 @@ const Leaderboard = () => {
   const handleHome = () => {
     navigate("/");
   };
+
   return (
     <div className="headerleaderboard">
-      <button className="homebutton" onClick={handleHome}>
-        HOME
-      </button>
+      {/* <button onClick={handleHome}> */}
+      <img src={home} className="homebutton" onClick={handleHome} />
+      {/* </button> */}
       <h1>ATCODER</h1>
       <table className="tableprofile">
         <thead>

@@ -4,20 +4,25 @@ import axios from "axios";
 import "../compcss/home.css";
 import Contestlist from "./contestlist.jsx";
 import Contestlistatcoder from "./contestlistatcoder.jsx";
-import  LoadingSpinner  from "./loader.jsx";
+import Contestlistcodechef from "./contestlistcodechef.jsx";
+import LoadingSpinner from "./loader.jsx";
 export const Contest = () => {
   const [atcoderupcoming, setAtcoder] = useState([]);
   const [atcoderpast, setAtcoderPast] = useState([]);
+  const [codechef, setCodechef] = useState([]);
+  const [codechefpast, setCodechefpast] = useState([]);
   const [contests, setContests] = useState([]);
   const [view, setView] = useState("cf");
   const navigate = useNavigate();
   const host = process.env.REACT_APP_BACKEND_URL;
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchContest = async () => {
       try {
         const response = await axios.get(`${host}/codeforcecontest`);
+        const res = await axios.get(`${host}/codechef`);
+        setCodechef(res.data.upcoming);
+        setCodechefpast(res.data.past);
         if (response.data.success) {
           const sortedContests = response.data.contests.sort(
             (a, b) => a.start_time - b.start_time
@@ -35,7 +40,7 @@ export const Contest = () => {
     };
     fetchContest();
   }, []);
-  console.log(atcoderupcoming);
+  // console.log(atcoderupcoming);
   const finishedContests = contests
     .filter((contest) => contest.status === "finished")
     .sort((a, b) => b.start_time - a.start_time);
@@ -50,6 +55,9 @@ export const Contest = () => {
   };
   const handleLeaderboard = (e) => {
     navigate("/leaderboard");
+  };
+  const handleleetcode = (url) => {
+    window.open(url, "_blank");
   };
   // useEffect(() => {
   //   console.log(contests);
@@ -67,9 +75,6 @@ export const Contest = () => {
         >
           Atcoder
         </button>
-        {/* <button value="atcoder" className="codeforcebutton" onClick={handleNav}>
-          user
-        </button> */}
         <button
           value="cf"
           className="codeforcebutton"
@@ -77,6 +82,14 @@ export const Contest = () => {
         >
           Leaderboard
         </button>
+        <button
+          value="codechef"
+          className="codeforcebutton"
+          onClick={handleView}
+        >
+          Codechef
+        </button>
+        <button className="codeforcebutton" onClick={()=>handleleetcode("https://leetcode-leaderboard-2.onrender.com/")}>Leetcode</button>
       </div>
 
       {loading ? (
@@ -103,6 +116,18 @@ export const Contest = () => {
               />
               <Contestlistatcoder
                 contests={atcoderpast}
+                category="PAST CONTESTS"
+              />
+            </>
+          )}
+          {view === "codechef" && (
+            <>
+              <Contestlistcodechef
+                contests={codechef}
+                category="UPCOMING CONTESTS"
+              />
+              <Contestlistcodechef
+                contests={codechefpast}
                 category="PAST CONTESTS"
               />
             </>

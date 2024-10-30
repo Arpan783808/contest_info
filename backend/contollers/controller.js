@@ -91,8 +91,8 @@ export const leaderboard = async (req, res) => {
   }
 };
 export const atcoder = async (req, res) => {
-  try {
-    
+  try {    
+    // scrapeAtcoderContests();
     const upcomingContests = await Contest.find({ isPast: false }).sort({ startTime: 1 });
     
     const pastContests = await Contest.find({ isPast: true }).sort({ startTime: -1 });
@@ -110,12 +110,13 @@ export const atcoder = async (req, res) => {
 };
 export const codechef = async (req, res) => {
   try {
-    scrapeCodechefContests();
+    // scrapeCodechefContests();
     const upcomingContests = await Codechef.find({ isPast: false }).sort({ startTime: 1 });
     
     const pastContests = await Codechef.find({ isPast: true }).sort({ startTime: -1 });
     
     res.json({
+      success:true,
       upcoming: upcomingContests,
       past: pastContests,
     });
