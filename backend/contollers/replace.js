@@ -1,7 +1,8 @@
 
 import Contest from '../models/contest.js';  // Import the contest model
 import Codechef from '../models/codechefcontest.js';
-
+import Star from '../models/starboard.js';
+import Starcf from "../models/starboardcf.js";
 export const replaceContestData = async (contests) => {
   try {
     // Step 1: Clear existing contests from MongoDB
@@ -68,6 +69,17 @@ export const replaceContestData1 = async (contests) => {
     await Codechef.insertMany([...upcomingContests, ...pastContests]);
     console.log('New contest data inserted successfully!');
     
+  } catch (error) {
+    console.error('Error replacing contest data:', error);
+  }
+};
+export const replaceStars= async (stars) => {
+  try {
+    // Step 1: Clear existing contests from MongoDB
+    await Star.deleteMany({});
+    console.log('Old stars cleared.');
+    await Star.insertMany(stars);
+    console.log('New stars added ');    
   } catch (error) {
     console.error('Error replacing contest data:', error);
   }

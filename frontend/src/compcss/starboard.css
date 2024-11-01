@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Luckiest+Guy&display=swap");
+.fullstarboard {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #17153b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: -2;
+}
+p {
+  font-size: 30px;
+  font-family: "League Spartan", sans-serif;
+}
+.starhead h1 {
+  text-shadow: 1px 10px 10px 10px #00ffff;
+  font-size: 200px;
+  font-family: "League Spartan", sans-serif;
+}
+.starhead {
+  /* margin-top:20px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tablehead {
+  /* margin-top:20px; */
+  height: 70px;
+  width: 98vw;
+  background-color: #5046b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 15px;
+  border: none;
+}
+.first,
+.second,
+.third,
+.fourth,
+.fifth,
+.sixth {
+  height: 80px;
+  width: 8%;
+  color: white;
+  background-color: #2e236c;
+  border-radius: 15px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.second {
+  width: 30%;
+}
+.third {
+  width: 20%;
+}
+.fourth {
+  width: 20%;
+}
+.fifth {
+  width: 20%;
+}
+.sixth {
+  width: 10%;
+}
+.f1 p {
+  font-size: 60px;
+}
+.startable {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+.starcard {
+  cursor:pointer;
+  background-color: #433d8b;
+  height: 70px;
+  width: 98vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  gap: 10px;
+}
+.f {
+  background-color: #1d154f;
+}
+.homebutton1 {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+.game1 img {
+  transform: rotate(-15deg);
+  height: 300px;
+  width: 450px;
+}
+.game1 {
+  position: absolute;
+  z-index: 0;
+}
+.starboard {
+  z-index: 2;
+}
+.extra-info {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  transition: max-height 0.3s ease;
+  background-color: #433d8b;
+  padding: 0 10px;
+  border-radius: 15px;
+}
+.starcard:hover{
+    background-color: white;
+}
+.extra-info {
+  min-height: 350px; /* Adjust height to fit the content */
+  padding-left:60px;
+padding-right:60px;
+}
+.cfinfo {
+    flex: 1;
+    height:80%;
+    padding:15px;
+    width:20%;
+    border-radius: 15px;
+    background-color: #2e236c;
+    color:white;
+}
+.cfinfo h3{
+    font-size: 40px;
+    font-family: "League Spartan", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    
+}
+.cfinfo p{
+    font-size: 30px;
+    font-family: "League Spartan", sans-serif;
+    text-align: center;
+    text-transform:uppercase;
+}

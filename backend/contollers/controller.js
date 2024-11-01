@@ -5,10 +5,10 @@ import createsecrettoken from "../token.js";
 import bcrypt from "bcryptjs";
 import Contest from "../models/contest.js";
 import { scrapeAndSave } from "./scrapeandsave.js";
-import { scrapeAtcoderContests } from "./scrape.js";
-import { scrapeCodechefContests } from "./scrape.js";
-import { updateContestStatus } from "./updatecontest.js";
 import Codechef from "../models/codechefcontest.js";
+import Star from "../models/starboard.js";
+import Starcf from "../models/starboardcf.js";
+import { scrapeLeetcode } from "./scrape.js";
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -126,3 +126,18 @@ export const codechef = async (req, res) => {
       .json({ message: "Failed to retrieve contests", error: error.message });
   }
 };
+
+export const starboard=async(req,res)=>{
+  try{
+    scrapeLeetcode();
+    const starboard = await Star.find().sort({ totalscore: -1 }).exec();
+    res.json({
+      success:true,
+      starboard     
+    });
+  }
+  catch(error){
+    console.log("Stars failed",error.message);
+    res.status(500).json({success:false,message:"Failed to retrieve Stars"});
+  }
+}

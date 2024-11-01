@@ -59,6 +59,9 @@ export const Contest = () => {
   const handleleetcode = (url) => {
     window.open(url, "_blank");
   };
+  const handlestarboard=()=>{
+    navigate("/starboard");
+  }
   // useEffect(() => {
   //   console.log(contests);
   // }, [contests]);
@@ -90,6 +93,13 @@ export const Contest = () => {
           Codechef
         </button>
         <button className="codeforcebutton" onClick={()=>handleleetcode("https://leetcode-leaderboard-2.onrender.com/")}>Leetcode</button>
+        <button
+          value="starboard"
+          className="codeforcebutton"
+          onClick={handlestarboard}
+        >
+          Starboard
+        </button>
       </div>
 
       {loading ? (
