@@ -1,7 +1,7 @@
 import { LeetCode } from "leetcode-query";
 import moment from "moment";
 const leetcode = new LeetCode();
-async function fetchLcData(username) {
+export async function fetchLcData(username) {
     try {
         const data = await leetcode.user(username);
         const contestData = await leetcode.user_contest_info(username);
@@ -33,9 +33,9 @@ async function fetchLcData(username) {
     }
 }
 
-var prev_data = await fetchLcData("za_robot10");
 
-export async function fetchLc(username) {
+
+export async function fetchLc(username,prev_data) {
     try {
         console.log("entered leetcode");
         const data = await fetchLcData(username);

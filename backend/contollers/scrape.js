@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 import dotenv from "dotenv";
 import moment from "moment";
 import axios from "axios";
-import {fetchLc} from "./leetcode.js";
+import {fetchLc,fetchLcData} from "./leetcode.js";
 import {
   replaceContestData,
   replaceContestData1,
@@ -432,7 +432,8 @@ export async function scrapeLeetcode() {
     for (const star of starid) {
       const usernamelc = star[2];
       const usernamecf = star[1];
-      const userDatalc =await fetchLc(usernamelc);
+      var prev_data = await fetchLcData("za_robot10");
+      const userDatalc =await fetchLc(usernamelc,prev_data);
       const userDatacf = await fetchCf(usernamecf);      
       if (userDatacf) {
         newstars.push({
