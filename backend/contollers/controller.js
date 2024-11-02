@@ -7,7 +7,6 @@ import Contest from "../models/contest.js";
 import { scrapeAndSave } from "./scrapeandsave.js";
 import Codechef from "../models/codechefcontest.js";
 import Star from "../models/starboard.js";
-import Starcf from "../models/starboardcf.js";
 import { scrapeLeetcode } from "./scrape.js";
 export const login = async (req, res, next) => {
   try {

@@ -1,6 +1,10 @@
-import { scrapeAtcoderContests, scrapeCodechefContests,scrapeLeetcode } from "./scrape.js";
+import {
+  scrapeAtcoderContests,
+  scrapeCodechefContests,
+  scrapeLeetcode,
+} from "./scrape.js";
 
-export const updateContestStatus = async () => {  
+export const updateContestStatus = async () => {
   try {
     console.log("cron job called");
     scrapeAtcoderContests();
@@ -11,4 +15,4 @@ export const updateContestStatus = async () => {
   }
 };
 
-setInterval(updateContestStatus,15*60 * 1000); // Run every minute
+setInterval(updateContestStatus, 15 * 60 * 1000);

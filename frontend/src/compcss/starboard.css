@@ -101,6 +101,7 @@ p {
   cursor: pointer;
 }
 .game1 img {
+  filter: drop-shadow(#0051ff 6px 6px 10px);
   transform: rotate(-15deg);
   height: 300px;
   width: 450px;

@@ -2,7 +2,8 @@ import puppeteer from "puppeteer";
 import dotenv from "dotenv";
 import moment from "moment";
 import axios from "axios";
-import {fetchLc,fetchLcData} from "./leetcode.js";
+import { fetchLc, fetchLcData } from "./leetcode.js";
+import Week from "../models/week.js";
 import {
   replaceContestData,
   replaceContestData1,
@@ -300,114 +301,59 @@ export async function scrapeCodechefContests() {
   }
 }
 
-const query = gql`
-  query getUserStats($username: String!) {
-    matchedUser(username: $username) {
-      username
-      submitStats {
-        acSubmissionNum {
-          difficulty
-          count
-        }
-      }
-      contestBadge {
-        name
-        expired
-      }
-      profile {
-        ranking
-        userAvatar
-      }
-    }
-  }
-`;
-
-async function fetchLeetcodeData(username, user) {
-  const graphQLClient = new GraphQLClient(LEETCODE_API);
-
-  try {
-    const variables = { username };
-    const data = await graphQLClient.request(query, variables);
-
-    // Process data
-    const acSubmissions = data.matchedUser.submitStats.acSubmissionNum;
-    let totalSolved = 0;
-    let totalRating = 0;
-
-    acSubmissions.forEach((submission) => {
-      const difficulty = submission.difficulty;
-      const count = submission.count;
-
-      if (difficulty === "EASY") totalRating += count * 1000;
-      if (difficulty === "MEDIUM") totalRating += count * 1300;
-      if (difficulty === "HARD") totalRating += count * 1600;
-
-      totalSolved += count;
-    });
-
-    const avgRating = totalSolved ? totalRating / totalSolved : 0;
-
-    return {
-      username: data.matchedUser.username,
-      problemsSolved: totalSolved,
-      avgRating,
-      contestBadge: data.matchedUser.contestBadge?.name || "No Badge",
-      ranking: data.matchedUser.profile?.ranking || null,
-    };
-  } catch (error) {
-    console.error(`Error fetching data for ${username}:`, error);
-    return null;
-  }
-}
-
 async function fetchCf(username) {
-  try{
+  try {
     console.log("entered codeforces");
-    const data=await axios.get(`https://codeforces.com/api/user.status?handle=${username}`);
+    const data = await axios.get(
+      `https://codeforces.com/api/user.status?handle=${username}`
+    );
     // console.log(data.data.result);
-    let problems=0;
-    let totalrating=0;
-    let rated=0;
-    let ratingchange=0;
-    let num=new Set();
+    let problems = 0;
+    let totalrating = 0;
+    let rated = 0;
+    let ratingchange = 0;
+    let num = new Set();
     let start = moment().startOf("isoWeek").unix();
-    for(const submission of data.data.result){
-      const time=submission.creationTimeSeconds;
-      if(time>=start){
-        if(submission.author.participantType==="CONTESTANT"){
+    for (const submission of data.data.result) {
+      const time = submission.creationTimeSeconds;
+      if (time >= start) {
+        if (submission.author.participantType === "CONTESTANT") {
           num.add(submission.contestId);
         }
-        if(submission.verdict==="OK"){
+        if (submission.verdict === "OK") {
           problems++;
-          totalrating += submission.problem.rating || 0; 
-          if(submission.problem.rating){
+          totalrating += submission.problem.rating || 0;
+          if (submission.problem.rating) {
             rated++;
           }
         }
       }
     }
 
-    const contest=num.size;
-    const avgrating=Math.ceil(rated>0?totalrating/rated:0);    
-    const data1=await axios.get(`https://codeforces.com/api/user.rating?handle=${username}`);
-    for(const rating of data1.data.result){
-      const id=rating.contestId;    
-      if(num.has(id)){
+    const contest = num.size;
+    const avgrating = Math.ceil(rated > 0 ? totalrating / rated : 0);
+    const data1 = await axios.get(
+      `https://codeforces.com/api/user.rating?handle=${username}`
+    );
+    for (const rating of data1.data.result) {
+      const id = rating.contestId;
+      if (num.has(id)) {
         // console.log(id);
-        ratingchange+=(rating.newRating-rating.oldRating);
+        ratingchange += rating.newRating - rating.oldRating;
       }
     }
-    const score=Math.ceil(problems+avgrating/100+ratingchange/10+contest*10);
+    const score = Math.ceil(
+      problems + avgrating / 100 + ratingchange / 10 + contest * 10
+    );
     console.log("leaving codeforces");
-    return ({
+    return {
       problems,
       avgrating,
       ratingchange,
       contest,
-      score
-    });
-  }
-  catch(error){
+      score,
+    };
+  } catch (error) {
     console.log(error.message);
   }
 }
@@ -418,30 +364,39 @@ export async function scrapeLeetcode() {
     const starid = [
       ["Arpan", "CodeXArpan", "_Code_Shark"],
       ["Simar", "1.6", "s1marjeet_singh"],
-      ["Deepanshu","Deepanshu_Sharma","dsharma02102004"],
-      ["Krishankant","krishankant05","krishankant_nsut"],
-      ["Ekankaar","ZaRobot10","za_robot10"],
-      ["Hemant","CipherSage","CipherSage05"],
-      ["kalpit","kalpitdon7","kalpit04"],
-      ["Ananya","QuanCraft","ananyak84"],
-      ["Aditya","aadichachra","aadichachra"],
-      ["Varun","varun_cfaari","varun9904"],
-      ["Pranay","Pranay_Contest8","BinaryWizard_8"],
+      ["Deepanshu", "Deepanshu_Sharma", "dsharma02102004"],
+      ["Krishankant", "krishankant05", "krishankant_nsut"],
+      ["Ekankaar", "ZaRobot10", "za_robot10"],
+      ["Hemant", "CipherSage", "CipherSage05"],
+      ["kalpit", "kalpitdon7", "kalpit04"],
+      ["Ananya", "QuanCraft", "ananyak84"],
+      ["Aditya", "aadichachra", "aadichachra"],
+      ["Varun", "varun_cfaari", "varun9904"],
+      ["Pranay", "Pranay_Contest8", "BinaryWizard_8"],
     ]; // add more users as needed
-    const newstars=[];
+    const newstars = [];
     for (const star of starid) {
       const usernamelc = star[2];
       const usernamecf = star[1];
-      var prev_data = await fetchLcData("za_robot10");
-      const userDatalc =await fetchLc(usernamelc,prev_data);
-      const userDatacf = await fetchCf(usernamecf);      
+      let start = moment().startOf("isoWeek").unix();
+      let weekData = await Week.findOne({ username:usernamelc });
+      const data = await Week.findOne({ id: 1 });
+      if (!data || data.week != start) {
+        console.log("New week detected, updating week data...");
+        await Week.deleteMany({ usernamelc });
+        const prev_data = await fetchLcData(usernamelc);
+        weekData = await Week.create({ username:usernamelc, week: start, prev_data });
+      }
+      const prev_data = weekData.prev_data;
+      const userDatalc = await fetchLc(usernamelc, prev_data);
+      const userDatacf = await fetchCf(usernamecf);
       if (userDatacf) {
         newstars.push({
-          username:star[0],
-          codeforces:userDatacf,
-          leetcode:userDatalc,
-          totalscore:userDatacf.score+userDatalc.score,
-          badge:"Star"
+          username: star[0],
+          codeforces: userDatacf,
+          leetcode: userDatalc,
+          totalscore: userDatacf.score + userDatalc.score,
+          badge: "Star",
         });
       }
     }

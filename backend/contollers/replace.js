@@ -2,7 +2,6 @@
 import Contest from '../models/contest.js';  // Import the contest model
 import Codechef from '../models/codechefcontest.js';
 import Star from '../models/starboard.js';
-import Starcf from "../models/starboardcf.js";
 export const replaceContestData = async (contests) => {
   try {
     // Step 1: Clear existing contests from MongoDB
